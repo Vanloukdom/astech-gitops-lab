@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: astech
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Vanloukdom/astech-gitops-lab.git
+    targetRevision: main
+    path: helm/astech-app
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: astech
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

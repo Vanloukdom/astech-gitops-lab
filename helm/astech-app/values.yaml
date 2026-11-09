@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: astech-app
+  tag: "1.0"
+  pullPolicy: Never
+
+service:
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  host: astech.local

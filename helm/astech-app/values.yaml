@@ -1,9 +1,12 @@
 replicaCount: 2
 
 image:
-  repository: astech-app
+  repository: vanloukdom/astech-app
   tag: "1.0"
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: dockerhub-cred
 
 service:
   port: 80

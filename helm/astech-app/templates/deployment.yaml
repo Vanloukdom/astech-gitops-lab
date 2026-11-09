@@ -12,6 +12,10 @@ spec:
       labels:
         app: astech-app
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: astech-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

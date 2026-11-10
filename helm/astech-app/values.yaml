@@ -14,4 +14,4 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: astech.local
+  host: astech.93.127.162.226.nip.io

@@ -1,0 +1,7 @@
+replicaCount: 1
+
+ingress:
+  host: dev.astech.93.127.162.226.nip.io
+
+env:
+  APP_ENV: "dev"

@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: vansorel/astech-app
@@ -14,4 +14,7 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: astech.93.127.162.226.nip.io
+  host: ""  # défini par environemment 
+
+env:
+  APP_ENV: "default"

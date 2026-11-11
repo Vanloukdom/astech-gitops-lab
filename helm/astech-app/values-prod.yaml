@@ -1,0 +1,7 @@
+replicaCount: 3
+
+ingress:
+  host: astech.93.127.162.226.nip.io
+
+env:
+  APP_ENV: "prod"

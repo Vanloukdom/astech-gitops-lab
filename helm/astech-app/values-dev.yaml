@@ -5,3 +5,9 @@ ingress:
 
 env:
   APP_ENV: "dev"
+
+autoscaling:
+  enabled: true
+
+pdb:
+  enabled: true

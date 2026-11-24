@@ -18,3 +18,25 @@ ingress:
 
 env:
   APP_ENV: "default"
+
+probes:
+  readinessPath: /healthz
+  livenessPath: /healthz
+progressDeadlineSeconds: 120     # Degraded au bout de 2 min (600 s par défaut)
+resources:
+  requests:
+    cpu: 50m
+    memory: 32Mi
+  limits:
+    cpu: 200m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
+
+pdb:
+  enabled: false
+  minAvailable: 1

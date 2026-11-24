@@ -1,0 +1,21 @@
+# Configuration de Traefik pour le cluster kind "monapp"
+
+service:
+  spec:
+    type: NodePort            # pas de LoadBalancer sur kind
+
+ports:
+  web:
+    nodePort: 31496           # NodePort figé : le relais socat pointe dessus
+  websecure:
+    nodePort: 31166
+
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: false          # inutile en NodePort (pas d'adresse LoadBalancer)
+
+additionalArguments:
+  # IP inscrite dans le statut de chaque Ingress → colonne ADDRESS remplie
+  # → Argo CD passe les applications en Healthy
+  - --providers.kubernetesingress.ingressendpoint.ip=93.127.162.226

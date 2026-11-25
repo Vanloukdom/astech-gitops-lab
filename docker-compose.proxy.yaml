@@ -1,0 +1,13 @@
+services:
+  astech-proxy:
+    image: alpine/socat
+    container_name: astech-proxy
+    restart: unless-stopped
+    command: tcp-listen:8081,fork,reuseaddr tcp-connect:monapp-control-plane:31496
+    ports:
+      - "8081:8081"
+
+networks:
+  default:
+    name: kind
+    external: true

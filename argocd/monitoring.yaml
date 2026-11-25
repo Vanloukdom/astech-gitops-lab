@@ -34,6 +34,11 @@ spec:
             existingSecret: grafana-admin
             userKey: admin-user
             passwordKey: admin-password
+          ingress:
+            enabled: true
+            ingressClassName: traefik
+            hosts:
+              - grafana.93.127.162.226.nip.io
           additionalDataSources:
             - name: Loki
               type: loki

@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: 93.10.0
+    helm:
+      valuesObject:
+        alertmanager:
+          enabled: false
+        # Sur kind, ces composants n'exposent pas leurs métriques :
+        # on les désactive pour éviter des cibles en erreur et de fausses alertes
+        kubeEtcd:
+          enabled: false
+        kubeScheduler:
+          enabled: false
+        kubeControllerManager:
+          enabled: false
+        kubeProxy:
+          enabled: false
+        prometheus:
+          prometheusSpec:
+            retention: 2d
+            resources:
+              requests: { cpu: 100m, memory: 400Mi }
+              limits:   { memory: 1Gi }
+        grafana:
+          admin:
+            existingSecret: grafana-admin
+            userKey: admin-user
+            passwordKey: admin-password
+          additionalDataSources:
+            - name: Loki
+              type: loki
+              url: http://loki.monitoring.svc:3100
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true      # indispensable : les CRD de ce chart sont trop volumineuses sans cette optionx

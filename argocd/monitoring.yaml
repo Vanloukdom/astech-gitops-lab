@@ -42,7 +42,24 @@ spec:
           additionalDataSources:
             - name: Loki
               type: loki
+              uid: loki
               url: http://loki.monitoring.svc:3100
+              jsonData:
+                derivedFields:
+                  - name: TraceID
+                    matcherRegex: 'trace_id=(\w+)'
+                    url: '$${__value.raw}'
+                    datasourceUid: tempo
+            - name: Tempo
+              type: tempo
+              uid: tempo
+              url: http://tempo.monitoring.svc:3200
+              jsonData:
+                tracesToLogsV2:
+                  datasourceUid: loki
+                  filterByTraceID: true
+                  spanStartTimeShift: '-5m'
+                  spanEndTimeShift: '5m'
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

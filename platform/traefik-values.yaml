@@ -19,3 +19,11 @@ additionalArguments:
   # IP inscrite dans le statut de chaque Ingress → colonne ADDRESS remplie
   # → Argo CD passe les applications en Healthy
   - --providers.kubernetesingress.ingressendpoint.ip=93.127.162.226
+
+tracing:
+  otlp:
+    enabled: true
+    grpc:
+      enabled: true
+      endpoint: alloy.monitoring.svc:4317
+      insecure: true

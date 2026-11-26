@@ -40,3 +40,7 @@ autoscaling:
 pdb:
   enabled: false
   minAvailable: 1
+
+alerts:
+  enabled: true
+  severity: warning

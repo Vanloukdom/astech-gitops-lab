@@ -5,3 +5,6 @@ ingress:
 
 env:
   APP_ENV: "prod"
+
+alerts:
+  severity: critical       # même règles, urgence plus haute en prod

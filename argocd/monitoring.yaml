@@ -12,9 +12,13 @@ spec:
     helm:
       valuesObject:
         alertmanager:
-          enabled: false
-        # Sur kind, ces composants n'exposent pas leurs métriques :
-        # on les désactive pour éviter des cibles en erreur et de fausses alertes
+          enabled: true
+          alertmanagerSpec:
+            useExistingSecret: true
+            configSecret: alertmanager-config
+            resources:
+              requests: { cpu: 10m, memory: 32Mi }
+              limits:   { memory: 128Mi }
         kubeEtcd:
           enabled: false
         kubeScheduler:
